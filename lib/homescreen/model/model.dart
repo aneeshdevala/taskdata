@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class UserModel {
   String userId;
   String email;
@@ -15,14 +17,24 @@ class UserModel {
       required this.imageBinary});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    print('jfps'); 
     return UserModel(
       userId: json["userId"] ?? "",
       email: json["email"] ?? "",
       username: json["username"] ?? "",
       mobile: json["mobile"] ?? "",
       address: json["address"] ?? "",
-      imageBinary: json["imageBinary"] ?? "",
+      imageBinary: json["imageBinary"],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "userId": userId,
+      "email": email,
+      "username": username,
+      "mobile": mobile,
+      "address": address,
+      "imagePath": imageBinary,
+    };
   }
 }

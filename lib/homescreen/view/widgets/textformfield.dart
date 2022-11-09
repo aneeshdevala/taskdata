@@ -6,6 +6,7 @@ class TextFieldWidgetHome extends StatelessWidget {
   final TextEditingController contoller;
   final Size size;
   final IconData icon;
+  final bool readOnly;
   const TextFieldWidgetHome({
     Key? key,
     required this.icon,
@@ -13,6 +14,7 @@ class TextFieldWidgetHome extends StatelessWidget {
     required this.contoller,
     required this.hint,
     required this.type,
+    required this.readOnly,
   }) : super(key: key);
 
   @override

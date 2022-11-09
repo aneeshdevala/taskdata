@@ -3,21 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userdata/homescreen/controller/homecontroller.dart';
-
+import 'package:userdata/homescreen/controller/imageprovider.dart';
+import 'package:userdata/utils/size.dart';
 
 class BottomSheetSettings extends StatelessWidget {
-  final String image;
-  final String name;
-  final String email;
-
 
   const BottomSheetSettings({
     Key? key,
-    required this.image,
-    required this.name,
-    required this.email,
-   
-    
+
   }) : super(key: key);
 
   @override
@@ -25,69 +18,88 @@ class BottomSheetSettings extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final pov = context.read<HomeController>();
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 20),
-          Consumer<HomeController>(builder: (context, value, child) {
-            return
-             GestureDetector(
-              onTap: () {
-             //   value.pickImage();
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 60,
-              //  backgroundImage: MemoryImage(const Base64Decoder().convert(value.imageToString.trim().isEmpty ? image : value.imageToString)),
-              ),
-            );
-          }),
-          const SizedBox(height: 30),
-          TextFieldWidgetHomeBottom(
-            icon: Icons.email_outlined,
-            size: size,
-            contoller: pov.emailController,
-            hint: name,
-            type: TextInputType.name,
-          ),
-          const SizedBox(height: 15),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .84,
-            child: ElevatedButton(
-              onPressed: () {
-                // pov.updateData(
-                //   email: email,
-                //   name: name,
-                //   context: context,
-                //   image: image,
-                //   document: document,
-                //   password: password,
-                // );
-
-                Navigator.pop(context);
-             //   pov.changeNameController.clear();
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // <-- Radius
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 20),
+            Consumer<UserImagePovHome>(builder: (context, value, child) {
+              return GestureDetector(
+                onTap: () {
+                  value.pickImage();
+                },
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 60,
+                  //  backgroundImage: MemoryImage(const Base64Decoder().convert(value.imageToString.trim().isEmpty ? image : value.imageToString)),
                 ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  'SUBMIT',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'redhat',
+              );
+            }),
+            kheight,
+            TextFieldWidgetHomeBottom(
+              icon: Icons.email_outlined,
+              size: size,
+              contoller: pov.userNameController,
+              hint: 'User Name',
+              type: TextInputType.name,
+            ),
+            kheight,
+            TextFieldWidgetHomeBottom(
+              icon: Icons.email_outlined,
+              size: size,
+              contoller: pov.emailController,
+              hint: 'Email',
+              type: TextInputType.emailAddress,
+            ),
+            kheight,
+            TextFieldWidgetHomeBottom(
+              icon: Icons.email_outlined,
+              size: size,
+              contoller: pov.mobNoController,
+              hint:   'Mobile Number',
+              type: TextInputType.number,
+            ),
+            kheight,
+            TextFieldWidgetHomeBottom(
+              icon: Icons.email_outlined,
+              size: size,
+              contoller: pov.addressController,
+              hint:   'Address',
+              type: TextInputType.name,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .84,
+              child: ElevatedButton(
+                onPressed: () {
+                  pov.updateProfile(
+                    context: context
+                  );
+                  Navigator.pop(context);
+                  //   pov.changeNameController.clear();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // <-- Radius
+                  ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    'SUBMIT',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'redhat',
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 30),
-        ],
+            const SizedBox(height: 30),
+          ],
+        ),
       ),
     );
   }

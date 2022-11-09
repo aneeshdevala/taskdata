@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:userdata/homescreen/model/model.dart';
-import 'package:userdata/homescreen/model/service.dart';
+import 'package:userdata/homescreen/model/postmodel.dart';
+import 'package:userdata/homescreen/service/postservice.dart';
+import 'package:userdata/homescreen/service/service.dart';
 
 class HomeController extends ChangeNotifier {
   final userNameController = TextEditingController();
@@ -11,34 +14,45 @@ class HomeController extends ChangeNotifier {
   final mobNoController = TextEditingController();
   final addressController = TextEditingController();
   String userId = '';
-  String imageBinary = '';
+  String? imageBinary;
+
+  bool readOnly = true;
+
+  void toggleReadOnly() {
+    readOnly = !readOnly;
+    notifyListeners();
+  }
 
   final ProfileService _profileService = ProfileService();
   Future<UserModel?> getUserProfile() async {
     final response = await _profileService.getUserProfile();
     if (response != null) {
-      print('hello${response.username}');
       userId = response.userId;
       userNameController.text = response.username;
       mobNoController.text = response.mobile;
       addressController.text = response.address;
       emailController.text = response.email;
       imageBinary = response.imageBinary;
-
-      // notifyListeners();
       return response;
     }
     return null;
   }
 
-  void updateUserProfile(context) async {
-    final user = UserModel(
-      userId: userId,
-      address: addressController.text,
-      email: emailController.text,
-      username: userNameController.text,
-      mobile: mobNoController.text,
-      imageBinary: imageBinary,
-    );
+  final PostService _postService = PostService();
+  Future updateProfile({
+    required BuildContext context,
+  }) async {
+    final UserModel data = UserModel(
+        userId: userId,
+        username: userNameController.text,
+        email: emailController.text,
+        mobile: mobNoController.text,
+        address: addressController.text,
+        imageBinary: imageBinary.toString());
+    final String response = await _postService.updateProfile(data, context);
+    if (response.isNotEmpty) {
+      getUserProfile();
+    }
+    return null;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userdata/homescreen/controller/homecontroller.dart';
+import 'package:userdata/homescreen/controller/imageprovider.dart';
 import 'package:userdata/homescreen/view/homescreen.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => UserImagePovHome()),
         ChangeNotifierProvider(create: (_) => HomeController()),
       ],
       child: MaterialApp(
