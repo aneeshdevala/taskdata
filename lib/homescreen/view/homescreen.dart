@@ -7,10 +7,8 @@ import 'package:userdata/homescreen/model/model.dart';
 import 'package:userdata/homescreen/view/edit_screen.dart';
 import 'package:userdata/homescreen/view/widgets/textformfield.dart';
 import 'package:userdata/homescreen/service/service.dart';
-import 'package:userdata/homescreen/view/widgets/bottomsheet.dart';
-
 import 'package:userdata/utils/size.dart';
-import 'package:userdata/utils/string.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -43,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         kheight20,
                         TextFieldWidgetHome(
-                          readOnly: provider.readOnly,
+                          readOnly: false,
                           icon: Icons.person,
                           size: size,
                           contoller: provider.userNameController,
@@ -92,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 const EditScreen()));
-                                     
+
                                     // showModalBottomSheet(
                                     //     shape: const RoundedRectangleBorder(
                                     //         borderRadius: BorderRadius.vertical(

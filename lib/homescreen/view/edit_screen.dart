@@ -12,7 +12,7 @@ class EditScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<HomeController>();
-      Size size = MediaQuery.of(context).size; 
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -29,7 +29,7 @@ class EditScreen extends StatelessWidget {
               ),
               kheight20,
               TextFieldWidgetHome(
-                readOnly: true,
+                readOnly: false,
                 icon: Icons.person,
                 size: size,
                 contoller: provider.userNameController,
@@ -38,7 +38,7 @@ class EditScreen extends StatelessWidget {
               ),
               kheight20,
               TextFieldWidgetHome(
-                readOnly: true,
+                readOnly: false,
                 icon: Icons.email,
                 size: size,
                 contoller: provider.emailController,
@@ -47,7 +47,7 @@ class EditScreen extends StatelessWidget {
               ),
               kheight20,
               TextFieldWidgetHome(
-                readOnly: true,
+                readOnly: false,
                 icon: Icons.home,
                 size: size,
                 contoller: provider.addressController,
@@ -56,7 +56,7 @@ class EditScreen extends StatelessWidget {
               ),
               kheight20,
               TextFieldWidgetHome(
-                readOnly: true,
+                readOnly: false,
                 icon: Icons.phone,
                 size: size,
                 contoller: provider.mobNoController,
@@ -72,7 +72,9 @@ class EditScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          provider.updateProfile(context: context);
+                        },
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
@@ -81,7 +83,7 @@ class EditScreen extends StatelessWidget {
                           ),
                           child: const Center(
                             child: Text(
-                              'Edit',
+                              'Update',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

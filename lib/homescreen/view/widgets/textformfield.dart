@@ -31,7 +31,7 @@ class TextFieldWidgetHome extends StatelessWidget {
       ),
       child: Center(
         child: TextField(
-          readOnly: true,
+          readOnly: false,
           controller: contoller,
           keyboardType: type,
           style: const TextStyle(

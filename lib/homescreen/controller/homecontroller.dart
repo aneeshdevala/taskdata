@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:userdata/homescreen/model/model.dart';
-import 'package:userdata/homescreen/model/postmodel.dart';
 import 'package:userdata/homescreen/service/postservice.dart';
 import 'package:userdata/homescreen/service/service.dart';
 
@@ -39,20 +35,18 @@ class HomeController extends ChangeNotifier {
   }
 
   final PostService _postService = PostService();
-  Future updateProfile({
+  Future<void> updateProfile({
     required BuildContext context,
   }) async {
     final UserModel data = UserModel(
-        userId: userId,
+        userId: '1',
         username: userNameController.text,
         email: emailController.text,
         mobile: mobNoController.text,
         address: addressController.text,
         imageBinary: imageBinary.toString());
     final String response = await _postService.updateProfile(data, context);
-    if (response.isNotEmpty) {
-      getUserProfile();
-    }
-    return null;
+    if (response.isNotEmpty) {}
+    return;
   }
 }
