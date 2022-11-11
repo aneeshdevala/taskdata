@@ -45,6 +45,7 @@ class HomeController extends ChangeNotifier {
         mobile: mobNoController.text,
         address: addressController.text,
         imageBinary: imageBinary.toString());
+    notifyListeners();
     final String response = await _postService.updateProfile(data, context);
     if (response.isNotEmpty) {}
     return;

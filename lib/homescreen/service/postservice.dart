@@ -8,7 +8,7 @@ class PostService {
   Dio dio = Dio();
   Future<String> updateProfile(UserModel data, context) async {
     try {
-      print('object');
+     
       log(data.toJson().toString());
 
       final response = await dio.post(

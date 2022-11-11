@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userdata/homescreen/controller/homecontroller.dart';
+import 'package:userdata/homescreen/controller/imageprovider.dart';
+import 'package:userdata/homescreen/view/homescreen.dart';
 import 'package:userdata/homescreen/view/widgets/textformfield.dart';
 import 'package:userdata/utils/size.dart';
 
@@ -22,10 +24,28 @@ class EditScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 70,
-                backgroundImage: MemoryImage(
-                    const Base64Decoder().convert(provider.imageBinary!)),
+              Consumer<UserImagePovHome>(
+                builder: (context, value, child) => GestureDetector(
+                    onTap: () => value.pickImage(context),
+                    child: Center(
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundImage: MemoryImage(const Base64Decoder()
+                                .convert(provider.imageBinary!)),
+                          ),
+                          const Positioned(
+                            bottom: 20,
+                            right: 20,
+                            child: Icon(
+                              Icons.edit,
+                              size: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
               ),
               kheight20,
               TextFieldWidgetHome(
@@ -74,6 +94,8 @@ class EditScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           provider.updateProfile(context: context);
+                          Navigator.of(context).pop(MaterialPageRoute(
+                              builder: (ctx) => const HomeScreen()));
                         },
                         child: Container(
                           height: 50,

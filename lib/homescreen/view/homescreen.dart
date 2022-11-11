@@ -9,17 +9,17 @@ import 'package:userdata/homescreen/view/widgets/textformfield.dart';
 import 'package:userdata/homescreen/service/service.dart';
 import 'package:userdata/utils/size.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<HomeController>();
-    print(provider.readOnly);
+
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
+    return Consumer<HomeController>(
+      builder: (context, value, child) => SafeArea(
+          child: Scaffold(
         appBar: AppBar(
           title: const Text('Home Screen'),
         ),
@@ -91,18 +91,6 @@ class HomeScreen extends StatelessWidget {
                                             builder: (context) =>
                                                 const EditScreen()));
 
-                                    // showModalBottomSheet(
-                                    //     shape: const RoundedRectangleBorder(
-                                    //         borderRadius: BorderRadius.vertical(
-                                    //       top: Radius.circular(40),
-                                    //     )),
-                                    //     context: context,
-                                    //     isScrollControlled: true,
-                                    //     builder: (context) {
-                                    //       return BottomSheetSettings(
-
-                                    //       );
-                                    //     });
                                   },
                                   child: Container(
                                     height: 50,
@@ -183,7 +171,7 @@ class HomeScreen extends StatelessWidget {
                 );
               }
             }),
-      ),
+      )),
     );
   }
 }
